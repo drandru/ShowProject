@@ -19,6 +19,7 @@ build: ## Собрать контейнер, как backend так и frontend (
 	#@$(MAKE) build-backend-npm
 	@$(MAKE) build-backend
 	@$(MAKE) build-frontend
+	@$(MAKE) build-db
 
 .PHONY: build-backend
 build-backend: ## Собрать контейнер app, подтянуть все зависимости, подготовить к запуску
@@ -48,7 +49,6 @@ build-backend-npm: ## Собрать npm файлы для app
 .PHONY: build-db
 build-db: ## Собрать контейнер database, подтянуть все зависимости, подготовить к запуску
 	@docker compose pull postgresql-master
-	@docker compose build postgresql-master
 
 .PHONY: run-tests
 run-tests: ## Запустить тесты

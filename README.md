@@ -23,6 +23,8 @@ make start
 make start-d 
 `
 
+Подождите 10 секунд, загрузятся миграции.
+
 В проект доступен на [localhost:8080/admin](http://localhost:8080/admin) (для изменения порта см docker-compose.yml #28)
 
 логин пароль `admin@admin.com` : `admin`
