@@ -1,0 +1,19 @@
+{
+  "name": "show-project/authors",
+  "description": "Модуль Show Project для работы с авторами",
+  "type": "library",
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "ShowProject\\Authors\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ShowProject\\Authors\\ServiceProvider"
+      ]
+    }
+  }
+}

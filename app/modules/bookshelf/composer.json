@@ -1,0 +1,19 @@
+{
+  "name": "show-project/bookshelf",
+  "description": "Модуль Show Project для работы с полками",
+  "type": "library",
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "ShowProject\\Bookshelf\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ShowProject\\Bookshelf\\ServiceProvider"
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "show-project/books",
+  "description": "Модуль Show Project для работы с авторами",
+  "type": "library",
+  "minimum-stability": "dev",
+  "require": {
+    "show-project/authors": "*",
+    "show-project/bookshelf": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ShowProject\\Books\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ShowProject\\Books\\ServiceProvider"
+      ]
+    }
+  }
+}

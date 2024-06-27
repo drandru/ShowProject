@@ -1,0 +1,63 @@
+version: '3.0'
+
+services:
+ # App
+  app:
+    container_name: show-project-app
+    build:
+      context: .
+      dockerfile: ./.docker/php-fpm/Dockerfile
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    networks:
+      - network_internal
+
+  # Nginx Service
+  webserver:
+    container_name: show-project-webserver
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    networks:
+      - network_internal
+
+# мониторинг очередей
+  horizon:
+    container_name: show-project-horizon
+    build:
+      context: .
+      dockerfile: ./.docker/php-fpm/Dockerfile
+    entrypoint: 'php artisan horizon'
+    volumes:
+      - ./app:/app
+    depends_on:
+      - app
+    networks:
+      - network_internal
+
+  postgresql-master:
+    container_name: show-project-postgresql-master
+    image: 'bitnami/postgresql:15.0.0'
+    volumes:
+      - 'postgresql_master_data:/bitnami/postgresql'
+    environment:
+      POSTGRESQL_USERNAME: username
+      POSTGRESQL_PASSWORD: password
+      POSTGRESQL_DATABASE: app
+    networks:
+      - network_internal
+
+volumes:
+  postgresql_master_data:
+
+networks:
+  network_internal:
+    driver: bridge
