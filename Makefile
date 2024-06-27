@@ -19,22 +19,10 @@ build: ## Собрать контейнер, как backend так и frontend (
 	#@$(MAKE) build-backend-npm
 	@$(MAKE) build-backend
 	@$(MAKE) build-frontend
-	@$(MAKE) build-horizon
 
 .PHONY: build-backend
 build-backend: ## Собрать контейнер app, подтянуть все зависимости, подготовить к запуску
 	@if [[ ! -f './app/.env' ]]; then cp ./app/.env.example ./app/.env; fi
-	@docker run --rm --interactive --tty \
-		--volume ${PWD}/app:/app \
-		-w /app \
-		--user ${DOCKER_UID}:${DOCKER_GID} \
-		--env-file ./app/.env \
-		composer install --ignore-platform-reqs --no-scripts
-	@docker compose pull app
-	@docker compose build app
-
-.PHONY: build-horizon
-build-horizon: ## Собрать контейнер app, подтянуть все зависимости, подготовить к запуску
 	@docker run --rm --interactive --tty \
 		--volume ${PWD}/app:/app \
 		-w /app \
@@ -111,14 +99,4 @@ clean-deploy: ## Удаление контейнера
 	@rm -rf app/storage/framework/views/*
 
 
-
-
-
-.PHONY: composer-install-any
-composer-install-any: ## Установить Symfony
-	@docker run --rm --interactive --tty \
-		--volume ${PWD}/app:/app \
-		--user ${DOCKER_UID}:${DOCKER_GID} \
-		$$(if [ -f "${HOME}/.config/composer/auth.json" ]; then echo "-v ${HOME}/.config/composer/auth.json:/tmp/auth.json" ; fi) \
-		composer bash -c " composer require orchid/crud"
 
